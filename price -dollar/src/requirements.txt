@@ -1,0 +1,6 @@
+pandas==2.0.3
+bs4==0.0.1
+DateTime==5.1
+persiantools==3.0.1
+
+
