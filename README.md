@@ -1,56 +1,60 @@
-# Web Scraper Projects
+# Price Scraper CLI
 
-This repository contains a collection of web scraping projects aimed at various purposes. Whether you're interested in monitoring news websites, analyzing data, or fetching real-time data like currency exchange rates, this repository offers a range of tools to help you achieve your goals.
+A simple Go CLI app that scrapes live prices from [tgju.org](https://www.tgju.org) and displays them in a colorful terminal table with up/down trends and percentage changes. Output is in English, with the date shown in Jalali (Shamsi) format.
 
-## Projects Overview
+## Features
 
-### 1. Nan (The country's needs)
+- Scrapes multiple economic indicators (USD, Gold, Bitcoin, etc.)
+- Terminal UI with colored output and change indicators
+- Jalali (Shamsi) date format
+- Auto-refresh or one-time fetch
+- Docker-ready
+- Fully tested (unit + parser tests)
+- CI/CD via GitHub Actions
 
-#### Description
-This project focuses on gathering and analyzing data related to the country's needs. It includes tools for scraping websites, extracting relevant information, and performing data analysis.
+## Preview
 
-#### Files
-- `data_analyze_v1_3.ipynb`: Jupyter Notebook containing data analysis scripts.
-- `Data_nan.csv`: CSV file containing the scraped data.
-- `links.txt`: Text file containing links used for scraping.
+```
 
-#### Source Code
-- `src/get_page.py`: Python script for fetching web pages.
-- `src/main.py`: Main script for running the scraping process.
-- `src/save_link.py`: Script for saving scraped links.
+Date (Jalali): 1403-06-24   |   Time: 12:45:07
++-------------+---------+------------------+
+\| Item        | Price   | Change           |
++-------------+---------+------------------+
+\| Dollar      | 58900   | ▲ +500 (0.85%)   |
+\| Gold18K     | 2645000 | ▼ -15000 (-0.56%)|
+\| Bitcoin     | 1,234M  | • —              |
+...
 
-### 2. News
+````
 
-#### Description
-This project focuses on scraping news articles from specific sources. It provides tools to extract news articles from designated websites.
+## Usage
 
-#### Source Code
-- `src/fars_news.py`: Python script for scraping news articles from Fars News website.
+### Local
 
-### 3. Price - Dollar
+```bash
+go mod tidy
+go run .                # auto-refresh every 20s
+go run . -once          # fetch once and exit
+go run . -interval=10   # refresh every 10s
+````
 
-#### Description
-This project aims to fetch real-time data related to the dollar exchange rate. It provides tools to scrape currency exchange information from relevant websites.
+### Run Tests
 
-#### Source Code
-- `src/get_info.py`: Python script for fetching currency exchange information.
-- `src/main.py`: Main script for running the scraping process.
+```bash
+go test ./... -v
+```
 
-## Getting Started
+### Docker
 
-To get started with any of the projects, follow these steps:
+```bash
+docker build -t price-scraper .
+docker run --rm -it price-scraper -once
+```
 
-1. Clone the repository to your local machine.
-2. Navigate to the project directory you're interested in.
-3. Install any necessary dependencies listed in the `requirements.txt` file.
-4. Run the main script to start scraping data.
+## GitHub Actions CI/CD
 
-## Contribution
+* ✅ Lint and test on every push
+* ✅ Docker image builds automatically on `main`
 
-Contributions to this repository are welcome! Whether it's adding new scraping scripts, improving existing ones, or fixing bugs, feel free to submit pull requests.
 
-## License
 
-This repository is licensed under the [MIT License](LICENSE).
-
----
